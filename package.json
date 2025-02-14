@@ -1,0 +1,27 @@
+{
+  "name": "car-seller-agency-system",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "dev": "nodemon backend/server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DirsanA/Car-Seller-Agency-System.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/DirsanA/Car-Seller-Agency-System/issues"
+  },
+  "homepage": "https://github.com/DirsanA/Car-Seller-Agency-System#readme",
+  "description": "",
+  "dependencies": {
+    "D": "^1.0.0",
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2",
+    "mongoose": "^8.10.1",
+    "nodemon": "^3.1.9"
+  }
+}
