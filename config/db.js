@@ -1,15 +1,15 @@
-const mongoose = require("mongoose"); // Use require for CommonJS
+const mongoose = require("mongoose");
 const dotenv = require("dotenv");
 
-dotenv.config(); //ensure the MONGO_URI is exist before connection
+dotenv.config(); // Load MONGO_URI from .env file
 
 const connectDB = async () => {
   try {
-    const conn = await mongoose.connect(process.env.MONGO_URI);
-    console.log(`MongoDB Connected: ${conn.connection.host}`);
+    const conn = await mongoose.connect(process.env.MONGO_URI); // No need for deprecated options
+    console.log(`✅ MongoDB Connected: ${conn.connection.host}`);
   } catch (error) {
-    console.error(`Error: ${error.message}`);
-    process.exit(1); // Exit process with failure
+    console.error(`❌ Database Connection Error: ${error.stack}`);
+    process.exit(1); // Exit the process if the connection fails
   }
 };
 

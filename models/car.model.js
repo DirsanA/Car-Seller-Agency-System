@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 
+// so we wil create carSchema objec and create
 const carSchema = new mongoose.Schema(
   {
     model: {
@@ -29,5 +30,5 @@ const carSchema = new mongoose.Schema(
 );
 
 const Car = mongoose.model("Car", carSchema); // it create car schema in mogoose
-
+// so cars document is created at mongodb which is collection of name,price......
 module.exports = Car;
