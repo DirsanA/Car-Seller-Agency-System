@@ -57,7 +57,39 @@ app.post("/api/cars", async (req, res) => {
 });
 
 // Put method for updating the car details
-app.put("/api/cars/:id", async (req, res) => {});
+app.put("/api/cars/:id", async (req, res) => {
+  const { id } = req.params; // Get car ID from request parameters
+  const updateData = req.body; // Get update data from request body
+
+  try {
+    // Find the car by ID and update it
+    const updatedCar = await Car.findByIdAndUpdate(id, updateData, {
+      new: true, // Return the updated document
+      runValidators: true, // Ensure validation rules are followed
+    });
+
+    // If car not found, return 404 error
+    if (!updatedCar) {
+      return res.status(404).json({
+        success: false,
+        message: "Car not found",
+      });
+    }
+
+    // Return the updated car
+    res.status(200).json({
+      success: true,
+      message: "Car updated successfully",
+      data: updatedCar,
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: "Error updating the car",
+      error: error.message,
+    });
+  }
+});
 app.delete("/api/cars/:id", async (req, res) => {
   try {
     const { id } = req.params; // Get the ID from URL
