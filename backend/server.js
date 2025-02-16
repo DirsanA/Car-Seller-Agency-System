@@ -56,6 +56,8 @@ app.post("/api/cars", async (req, res) => {
   }
 });
 
+// Put method for updating the car details
+app.put("/api/cars/:id", async (req, res) => {});
 app.delete("/api/cars/:id", async (req, res) => {
   try {
     const { id } = req.params; // Get the ID from URL
