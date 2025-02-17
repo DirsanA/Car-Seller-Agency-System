@@ -41,7 +41,7 @@ const Hero = () => {
             href="#"
             className="bg-transparent hover:bg-white px-6 py-3 border-2 border-white rounded-full font-semibold text-white hover:text-black text-sm sm:text-base transition-all duration-300"
           >
-            Our Goal
+            Service
           </a>
         </div>
 

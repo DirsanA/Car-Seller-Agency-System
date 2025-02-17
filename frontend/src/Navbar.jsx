@@ -2,7 +2,7 @@ import { Menu, X } from "lucide-react";
 import { useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { navItems } from "./constants";
-import logo from "./assets/loggg.jpg";
+import logo from "./assets/awura.svg";
 
 const Navbar = () => {
   const [mobileDrawerOpen, setMobileDrawerOpen] = useState(false);
@@ -62,13 +62,12 @@ const Navbar = () => {
             ))}
           </ul>
 
-          {/* Join Us Button (Desktop) */}
           <div className="hidden lg:flex">
             <Link
-              to="/vacancy"
+              to="/login"
               className="hover:bg-orange-700 bg-gradient-to-r from-orange-500 to-orange-800 px-6 py-2 rounded-md text-white transition duration-300"
             >
-              Join Us
+              Admin
             </Link>
           </div>
 
@@ -107,11 +106,11 @@ const Navbar = () => {
             </ul>
             <div className="mt-4">
               <Link
-                to="/vacancy"
+                to="/login"
                 className="hover:bg-orange-700 bg-gradient-to-r from-orange-500 to-orange-800 px-6 py-2 rounded-md text-white transition duration-300"
                 onClick={() => setMobileDrawerOpen(false)}
               >
-                Join Us
+                Admin
               </Link>
             </div>
           </div>

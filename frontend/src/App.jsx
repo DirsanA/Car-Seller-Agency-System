@@ -1,13 +1,16 @@
-import { BrowserRouter as Router } from "react-router-dom";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Navbar from "./Navbar";
-import "./index.css";
 import Hero from "./Hero";
+import Login from "./Login"; // Ensure this is the correct path to your Login component
 
 const App = () => {
   return (
     <Router>
       <Navbar />
-      <Hero></Hero>
+      <Routes>
+        <Route path="/" element={<Hero />} />
+        <Route path="/login" element={<Login />} />
+      </Routes>
     </Router>
   );
 };
