@@ -8,3 +8,25 @@
   font-family: "Poppins", sans-serif;
   color-scheme: dark;
 }
+
+body {
+  margin: 0;
+  padding: 0;
+}
+
+.hero {
+  height: 100vh;
+  background-image: url("/path-to-your-image.jpg");
+  background-position: center;
+  background-size: cover;
+}
+
+.navbar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 50;
+  background: rgba(0, 0, 0, 0.5); /* Transparent background */
+  backdrop-filter: blur(10px);
+}
