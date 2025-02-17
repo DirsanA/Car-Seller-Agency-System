@@ -20,13 +20,13 @@ const Hero = () => {
         <h1 className="font-extrabold text-white text-4xl sm:text-5xl lg:text-6xl">
           Welcome to{" "}
           <span className="bg-clip-text bg-gradient-to-r from-orange-800 to-red-800 text-transparent">
-            Our Site
+            Our Agency
           </span>
         </h1>
         <p className="mx-auto mt-4 max-w-xl text-neutral-300 text-base sm:text-lg leading-relaxed tracking-wide">
-          Awura is a tech company that is focused on finding tech solutions
-          based on innovation and creativity, striving to drive positive change
-          in various industries through cutting-edge technologies.
+          We are a car seller agency focused on offering quality vehicles and
+          exceptional service. Our goal is to make car buying easy, reliable,
+          and customer-focused
         </p>
 
         {/* Buttons - Aligned horizontally with responsive stacking */}

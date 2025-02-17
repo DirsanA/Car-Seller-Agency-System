@@ -2,7 +2,8 @@ import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Navbar from "./Navbar";
 import Hero from "./Hero";
 import Login from "./Login";
-import CallSellingCard from "./CallSellingCard"; // Import the missing component
+import CarAdmin from "./CarAdminPanel";
+import AddCar from "./AddCar";
 
 const App = () => {
   return (
@@ -11,8 +12,8 @@ const App = () => {
       <Routes>
         <Route path="/" element={<Hero />} />
         <Route path="/login" element={<Login />} />
-        <Route path="/call-seller-card" element={<CallSellingCard />} />{" "}
-        {/* Add this route */}
+        <Route path="/call-seller-card" element={<CarAdmin />} />{" "}
+        <Route path="/add-car" element={<AddCar />} />
       </Routes>
     </Router>
   );

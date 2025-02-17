@@ -1,57 +1,51 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import ImgurlOne from "./assets/Bmw22.jpg";
 import ImgurlTwo from "./assets/e.jpg";
 
-const CallSellingCard = () => {
-  const [currentImage, setCurrentImage] = useState(0); // Track the current image
-  const [images, setImages] = useState([ImgurlOne, ImgurlTwo]); // Track the list of images
+const CarAdmin = () => {
+  const navigate = useNavigate();
+  const [currentImage, setCurrentImage] = useState(0);
+  const [images, setImages] = useState([ImgurlOne, ImgurlTwo]);
 
   const car = {
-    images: images, // Store image URLs in an array
+    images: images,
     model: "Toyota Camry 2025",
-    description:
-      "A reliable and fuel-efficient sedan with advanced features and technology.",
+    description: "A reliable and fuel-efficient sedan with advanced features.",
     price: 25999.99,
   };
 
   const handleNext = () => {
-    setCurrentImage((prevImage) => (prevImage + 1) % images.length); // Switch to the next image, looping back to the first one
+    setCurrentImage((prevImage) => (prevImage + 1) % images.length);
   };
 
   const handlePrevious = () => {
     setCurrentImage(
       (prevImage) => (prevImage - 1 + images.length) % images.length
-    ); // Switch to the previous image, looping back to the last one
+    );
   };
 
   const handleDelete = () => {
     if (images.length > 1) {
-      const updatedImages = images.filter((_, index) => index !== currentImage); // Remove the current image
+      const updatedImages = images.filter((_, index) => index !== currentImage);
       setImages(updatedImages);
       setCurrentImage(
         (prevImage) =>
           (prevImage - 1 + updatedImages.length) % updatedImages.length
-      ); // Adjust the index after deletion
+      );
     } else {
       alert("At least one image must remain.");
     }
   };
 
   const handleUpdate = () => {
-    // Logic to update the image (could be replaced with a file input or API call)
     const updatedImages = [...images];
-    updatedImages[currentImage] = ImgurlTwo; // For example, updating the current image to ImgurlTwo
+    updatedImages[currentImage] = ImgurlTwo;
     setImages(updatedImages);
-  };
-
-  const handleCreate = () => {
-    // Placeholder function to simulate image creation (e.g., upload or add image logic)
-    alert("Create new image functionality can be implemented here.");
   };
 
   return (
     <div className="mx-auto mt-20 p-4 max-w-4xl">
-      {/* Welcome message for the admin */}
       <div className="mb-6 text-center">
         <h1 className="font-semibold text-white text-2xl">
           Welcome, Admin! Manage your car listings.
@@ -60,7 +54,7 @@ const CallSellingCard = () => {
           Use the buttons below to navigate, update, or delete images.
         </p>
         <button
-          onClick={handleCreate}
+          onClick={() => navigate("/add-car")}
           className="inline-flex items-center mt-4 border-b-2 border-blue-600 font-medium text-blue-600"
         >
           Add New Car Listing
@@ -68,14 +62,12 @@ const CallSellingCard = () => {
       </div>
 
       <div className="flex lg:flex-row flex-col bg-white shadow-lg rounded-xl h-auto lg:h-80 overflow-hidden">
-        {/* Set a fixed height on larger screens */}
         <div className="w-full lg:w-1/2 overflow-hidden">
           <div className="flex space-x-2 h-full overflow-x-auto">
             <img
-              src={car.images[currentImage]} // Display the current image based on state
+              src={car.images[currentImage]}
               alt={`Car Image ${currentImage + 1}`}
               className="w-full h-64 sm:h-80 lg:h-full object-cover"
-              // Control the height of the image based on screen size
             />
           </div>
         </div>
@@ -104,7 +96,6 @@ const CallSellingCard = () => {
               </button>
             </div>
             <div className="flex space-x-4 mt-4">
-              {/* Flex container to keep buttons close to each other */}
               <button
                 onClick={handleDelete}
                 className="inline-flex items-center font-medium text-red-600"
@@ -125,4 +116,4 @@ const CallSellingCard = () => {
   );
 };
 
-export default CallSellingCard;
+export default CarAdmin;
