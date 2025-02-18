@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useCarStore } from "./store/carStore";
-import CarCard from "./CarCard";
+import CarCard from "./CarCardAdmin";
 
 const CarAdmin = () => {
   const navigate = useNavigate();

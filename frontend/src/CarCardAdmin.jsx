@@ -2,11 +2,10 @@ import React, { useState } from "react";
 import { FaTrash, FaEdit } from "react-icons/fa";
 import { motion } from "framer-motion";
 
-const CarCard = ({ car, onDelete, onUpdate }) => {
+const CarCardAdmin = ({ car, onDelete, onUpdate }) => {
   const [currentImage, setCurrentImage] = useState(0);
 
-  // Create an array of images using ImgurlOne and ImgurlTwo
-  const images = [car.ImgurlOne, car.ImgurlTwo].filter(Boolean); // Remove null/undefined images
+  const images = [car.ImgurlOne, car.ImgurlTwo].filter(Boolean);
 
   // Fallback to a placeholder image if no images are available
   const displayImages =
@@ -90,4 +89,4 @@ const CarCard = ({ car, onDelete, onUpdate }) => {
   );
 };
 
-export default CarCard;
+export default CarCardAdmin;
