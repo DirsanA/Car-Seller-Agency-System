@@ -5,16 +5,13 @@ import CarCard from "./CarCardAdmin";
 
 const CarAdmin = () => {
   const navigate = useNavigate();
-  const { cars, setCars } = useCarStore();
+  const { cars, setCars, deleteCar } = useCarStore();
 
   useEffect(() => {
     const fetchCars = async () => {
       try {
-        console.log("Fetching cars..."); // Debugging step
         const response = await fetch("http://localhost:5000/api/cars");
         const data = await response.json();
-
-        console.log("Fetched cars data:", data); // Check what we received
 
         if (data.success && Array.isArray(data.data)) {
           setCars(data.data);
@@ -48,7 +45,9 @@ const CarAdmin = () => {
 
       <div className="space-y-6">
         {cars.length > 0 ? (
-          cars.map((car) => <CarCard key={car._id} car={car} />)
+          cars.map((car) => (
+            <CarCard key={car._id} car={car} onDelete={deleteCar} />
+          ))
         ) : (
           <p className="text-white text-lg text-center">No cars available.</p>
         )}

@@ -1,17 +1,20 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useCarStore } from "./store/carStore";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom"; // Use useLocation to get state passed from CarCardAdmin
 
 const AddCar = () => {
   const navigate = useNavigate();
   const createCar = useCarStore((state) => state.createCar);
+  const updateCar = useCarStore((state) => state.updateCar);
+  const location = useLocation(); // Use location to get passed state
+  const carToUpdate = location.state?.car; // Get car data if available
 
   const [car, setCar] = useState({
-    model: "",
-    description: "",
-    price: "",
-    ImgurlOne: "",
-    ImgurlTwo: "",
+    model: carToUpdate?.model || "",
+    description: carToUpdate?.description || "",
+    price: carToUpdate?.price || "",
+    ImgurlOne: carToUpdate?.ImgurlOne || "",
+    ImgurlTwo: carToUpdate?.ImgurlTwo || "",
   });
 
   const [message, setMessage] = useState("");
@@ -34,16 +37,28 @@ const AddCar = () => {
       return;
     }
 
-    const response = await createCar(car);
-
-    if (response.success) {
-      setMessage("Car added successfully!");
-      setTimeout(() => {
-        // Redirect to the desired URL after 1 second
-        navigate("/call-seller-card"); // This is your route
-      }, 1000);
+    if (carToUpdate) {
+      // Update car if we have carToUpdate
+      const response = await updateCar(carToUpdate._id, car);
+      if (response.success) {
+        setMessage("Car updated successfully!");
+        setTimeout(() => {
+          navigate("/call-seller-card");
+        }, 1000);
+      } else {
+        setMessage("Error updating car: " + response.message);
+      }
     } else {
-      setMessage("Error adding car: " + response.message);
+      // Create new car
+      const response = await createCar(car);
+      if (response.success) {
+        setMessage("Car added successfully!");
+        setTimeout(() => {
+          navigate("/call-seller-card");
+        }, 1000);
+      } else {
+        setMessage("Error adding car: " + response.message);
+      }
     }
   };
 
@@ -51,7 +66,7 @@ const AddCar = () => {
     <div className="flex justify-center items-center bg-gray-900 p-4 min-h-screen">
       <div className="bg-gray-800 shadow-lg p-6 rounded-lg w-full max-w-2xl">
         <h2 className="mb-4 font-semibold text-white text-2xl text-center">
-          Add New Car
+          {carToUpdate ? "Update Car" : "Add New Car"}
         </h2>
 
         {message && (
@@ -61,7 +76,6 @@ const AddCar = () => {
         )}
 
         <form onSubmit={handleSubmit}>
-          {/* Model & Price side by side */}
           <div className="gap-4 grid grid-cols-2">
             <div>
               <label className="block font-medium text-gray-300 text-sm">
@@ -94,7 +108,6 @@ const AddCar = () => {
             </div>
           </div>
 
-          {/* Description */}
           <div className="mt-4">
             <label className="block font-medium text-gray-300 text-sm">
               Description
@@ -109,7 +122,6 @@ const AddCar = () => {
             />
           </div>
 
-          {/* Image URLs */}
           <div className="gap-4 grid grid-cols-2 mt-4">
             <div>
               <label className="block font-medium text-gray-300 text-sm">
@@ -146,7 +158,7 @@ const AddCar = () => {
             type="submit"
             className="bg-indigo-600 hover:bg-indigo-700 mt-6 px-4 py-2 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500 w-full font-semibold text-white"
           >
-            Add Car
+            {carToUpdate ? "Update Car" : "Add Car"}
           </button>
         </form>
       </div>
