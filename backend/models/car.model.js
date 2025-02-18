@@ -8,7 +8,6 @@ const carSchema = new mongoose.Schema({
   ImgurlTwo: { type: String, required: true },
 });
 
-// Check if the model already exists before creating it
 const Car = mongoose.models.Car || mongoose.model("Car", carSchema);
 
 module.exports = Car;

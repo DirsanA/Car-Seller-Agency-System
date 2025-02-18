@@ -1,4 +1,5 @@
 import { FaInstagram, FaFacebookF, FaTelegramPlane } from "react-icons/fa"; // import from react-icons
+import { Link } from "react-router-dom"; // Import Link from react-router-dom
 import imgHero from "./assets/e.jpg";
 
 const Hero = () => {
@@ -26,17 +27,17 @@ const Hero = () => {
         <p className="mx-auto mt-4 max-w-xl text-neutral-300 text-base sm:text-lg leading-relaxed tracking-wide">
           We are a car seller agency focused on offering quality vehicles and
           exceptional service. Our goal is to make car buying easy, reliable,
-          and customer-focused
+          and customer-focused.
         </p>
 
         {/* Buttons - Aligned horizontally with responsive stacking */}
         <div className="flex sm:flex-row flex-col justify-center items-center gap-4 mt-6 sm:mt-8">
-          <a
-            href="#"
+          <Link
+            to="/clients" // Change href to Link and point to /clients route
             className="bg-orange-600 hover:bg-orange-700 px-6 py-3 rounded-full font-semibold text-white text-sm sm:text-base transition-all duration-300"
           >
             Available Cars
-          </a>
+          </Link>
           <a
             href="#"
             className="bg-transparent hover:bg-white px-6 py-3 border-2 border-white rounded-full font-semibold text-white hover:text-black text-sm sm:text-base transition-all duration-300"

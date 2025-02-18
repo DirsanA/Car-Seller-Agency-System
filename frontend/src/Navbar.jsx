@@ -1,11 +1,12 @@
+import { useState, useEffect } from "react";
 import { Menu, X } from "lucide-react";
-import { useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { navItems } from "./constants";
 import logo from "./assets/awura.svg";
 
 const Navbar = () => {
   const [mobileDrawerOpen, setMobileDrawerOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
   const location = useLocation();
   const navigate = useNavigate();
 
@@ -13,24 +14,29 @@ const Navbar = () => {
     setMobileDrawerOpen(!mobileDrawerOpen);
   };
 
-  const handleNavigation = (item) => {
-    if (location.pathname !== "/") {
-      navigate("/");
-      setTimeout(() => {
-        document
-          .getElementById(item.href)
-          ?.scrollIntoView({ behavior: "smooth" });
-      }, 100);
-    } else {
-      document
-        .getElementById(item.href)
-        ?.scrollIntoView({ behavior: "smooth" });
-    }
-    setMobileDrawerOpen(false);
-  };
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 0) {
+        setScrolled(true);
+      } else {
+        setScrolled(false);
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll);
+
+    // Clean up the event listener when the component is unmounted
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
 
   return (
-    <nav className="top-0 left-0 z-50 fixed bg-transparent py-3 w-full">
+    <nav
+      className={`top-0 left-0 z-50 fixed py-3 w-full transition-all duration-300 ${
+        scrolled ? "bg-black" : "bg-transparent"
+      }`}
+    >
       <div className="mx-auto px-4 container">
         <div className="flex justify-between items-center">
           {/* Logo */}
@@ -43,21 +49,12 @@ const Navbar = () => {
           <ul className="hidden lg:flex space-x-12">
             {navItems.map((item, index) => (
               <li key={index}>
-                {item.label === "Vacancy" ? (
-                  <Link
-                    to={item.href}
-                    className="text-white hover:text-orange-500 transition duration-300"
-                  >
-                    {item.label}
-                  </Link>
-                ) : (
-                  <button
-                    onClick={() => handleNavigation(item)}
-                    className="text-white hover:text-orange-500 transition duration-300"
-                  >
-                    {item.label}
-                  </button>
-                )}
+                <Link
+                  to={item.href}
+                  className="text-white hover:text-orange-500 transition duration-300"
+                >
+                  {item.label}
+                </Link>
               </li>
             ))}
           </ul>
@@ -85,22 +82,13 @@ const Navbar = () => {
             <ul className="w-full">
               {navItems.map((item, index) => (
                 <li key={index} className="py-4 text-center">
-                  {item.label === "Vacancy" ? (
-                    <Link
-                      to={item.href}
-                      onClick={() => setMobileDrawerOpen(false)}
-                      className="text-white hover:text-orange-500 transition duration-300"
-                    >
-                      {item.label}
-                    </Link>
-                  ) : (
-                    <button
-                      onClick={() => handleNavigation(item)}
-                      className="text-white hover:text-orange-500 transition duration-300"
-                    >
-                      {item.label}
-                    </button>
-                  )}
+                  <Link
+                    to={item.href}
+                    onClick={() => setMobileDrawerOpen(false)}
+                    className="text-white hover:text-orange-500 transition duration-300"
+                  >
+                    {item.label}
+                  </Link>
                 </li>
               ))}
             </ul>

@@ -1,8 +1,10 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom"; // Import useNavigate
+import { useCarStore } from "./store/carStore";
+import { useNavigate } from "react-router-dom";
 
 const AddCar = () => {
-  const navigate = useNavigate(); // Initialize navigation
+  const navigate = useNavigate();
+  const createCar = useCarStore((state) => state.createCar);
 
   const [car, setCar] = useState({
     model: "",
@@ -18,7 +20,7 @@ const AddCar = () => {
     setCar({ ...car, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     if (
@@ -32,13 +34,17 @@ const AddCar = () => {
       return;
     }
 
-    console.log("Car Added:", car);
-    setMessage("Car added successfully!");
+    const response = await createCar(car);
 
-    // Redirect to CarAdmin after 1 second
-    setTimeout(() => {
-      navigate("/CarAdmin");
-    }, 1000);
+    if (response.success) {
+      setMessage("Car added successfully!");
+      setTimeout(() => {
+        // Redirect to the desired URL after 1 second
+        navigate("/call-seller-card"); // This is your route
+      }, 1000);
+    } else {
+      setMessage("Error adding car: " + response.message);
+    }
   };
 
   return (
@@ -88,7 +94,7 @@ const AddCar = () => {
             </div>
           </div>
 
-          {/* Description - Full width */}
+          {/* Description */}
           <div className="mt-4">
             <label className="block font-medium text-gray-300 text-sm">
               Description
@@ -103,7 +109,7 @@ const AddCar = () => {
             />
           </div>
 
-          {/* Image URLs side by side */}
+          {/* Image URLs */}
           <div className="gap-4 grid grid-cols-2 mt-4">
             <div>
               <label className="block font-medium text-gray-300 text-sm">
@@ -138,7 +144,6 @@ const AddCar = () => {
 
           <button
             type="submit"
-            onClick={() => navigate("/call-seller-card")}
             className="bg-indigo-600 hover:bg-indigo-700 mt-6 px-4 py-2 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500 w-full font-semibold text-white"
           >
             Add Car

@@ -1,6 +1,6 @@
 export const navItems = [
   { label: "Home", href: "/" },
   { label: "About Us", href: "/" },
-  { label: "Shop", href: "/" },
-  { label: "Contact us ", href: "/" },
+  { label: "Shop", href: "/clients" }, // This should route to /clients
+  { label: "Contact us", href: "/" },
 ];
